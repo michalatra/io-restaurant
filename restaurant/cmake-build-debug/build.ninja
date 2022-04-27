@@ -73,6 +73,18 @@ build CMakeFiles/restaurant.dir/Schedule.cpp.obj: CXX_COMPILER__restaurant_Debug
   OBJECT_DIR = CMakeFiles\restaurant.dir
   OBJECT_FILE_DIR = CMakeFiles\restaurant.dir
 
+build CMakeFiles/restaurant.dir/HolidayRequest.cpp.obj: CXX_COMPILER__restaurant_Debug C$:/Users/micha/Documents/Studia/IO/Cwiczenia/Projekt/io-restaurant/restaurant/HolidayRequest.cpp || cmake_object_order_depends_target_restaurant
+  DEP_FILE = CMakeFiles\restaurant.dir\HolidayRequest.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\restaurant.dir
+  OBJECT_FILE_DIR = CMakeFiles\restaurant.dir
+
+build CMakeFiles/restaurant.dir/Employee.cpp.obj: CXX_COMPILER__restaurant_Debug C$:/Users/micha/Documents/Studia/IO/Cwiczenia/Projekt/io-restaurant/restaurant/Employee.cpp || cmake_object_order_depends_target_restaurant
+  DEP_FILE = CMakeFiles\restaurant.dir\Employee.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\restaurant.dir
+  OBJECT_FILE_DIR = CMakeFiles\restaurant.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target restaurant
@@ -81,7 +93,7 @@ build CMakeFiles/restaurant.dir/Schedule.cpp.obj: CXX_COMPILER__restaurant_Debug
 #############################################
 # Link the executable restaurant.exe
 
-build restaurant.exe: CXX_EXECUTABLE_LINKER__restaurant_Debug CMakeFiles/restaurant.dir/main.cpp.obj CMakeFiles/restaurant.dir/User.cpp.obj CMakeFiles/restaurant.dir/Shift.cpp.obj CMakeFiles/restaurant.dir/Schedule.cpp.obj
+build restaurant.exe: CXX_EXECUTABLE_LINKER__restaurant_Debug CMakeFiles/restaurant.dir/main.cpp.obj CMakeFiles/restaurant.dir/User.cpp.obj CMakeFiles/restaurant.dir/Shift.cpp.obj CMakeFiles/restaurant.dir/Schedule.cpp.obj CMakeFiles/restaurant.dir/HolidayRequest.cpp.obj CMakeFiles/restaurant.dir/Employee.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\restaurant.dir
