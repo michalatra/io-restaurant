@@ -1,4 +1,0 @@
-C:\Users\kinga\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\213.5744.254\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\kinga\OneDrive\Dokumenty\restauracja_io\io-restaurant\restaurant
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/kinga/OneDrive/Dokumenty/restauracja_io/io-restaurant/restaurant/cmake-build-debug
