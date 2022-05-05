@@ -1,3 +1,0 @@
-C:/Users/micha/Documents/Studia/IO/Cwiczenia/Projekt/io-restaurant/restaurant/cmake-build-debug/CMakeFiles/restaurant.dir
-C:/Users/micha/Documents/Studia/IO/Cwiczenia/Projekt/io-restaurant/restaurant/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/micha/Documents/Studia/IO/Cwiczenia/Projekt/io-restaurant/restaurant/cmake-build-debug/CMakeFiles/rebuild_cache.dir
