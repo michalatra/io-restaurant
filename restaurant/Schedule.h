@@ -10,10 +10,9 @@
 class Schedule {
     std::vector<Shift> shifts;
 
+public:
     void addShift(Shift shift);
     void removeShift(Shift shift);
-
-public:
     const std::vector<Shift> &getShifts() const;
 
 };

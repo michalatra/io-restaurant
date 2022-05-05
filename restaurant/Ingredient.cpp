@@ -18,10 +18,22 @@ void Ingredient::setQuanity(int quanity) {
     Ingredient::quanity = quanity;
 }
 
-int Ingredient::getPrice() const {
+float Ingredient::getPrice() const {
     return price;
 }
 
-void Ingredient::setPrice(int price) {
+void Ingredient::setPrice(float price) {
     Ingredient::price = price;
+}
+
+void Ingredient::setName(const string &name) {
+    Ingredient::name = name;
+}
+
+int Ingredient::getId() const {
+    return id;
+}
+
+void Ingredient::setId(int id) {
+    Ingredient::id = id;
 }

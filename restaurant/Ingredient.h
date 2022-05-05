@@ -10,7 +10,8 @@ using namespace std;
 class Ingredient {
     string name;
     int quanity;
-    int price;
+    float price;
+    int id;
 public:
     Ingredient(const string &name, int quanity, int price);
 
@@ -18,11 +19,17 @@ public:
 
     void setQuanity(int quanity);
 
-    int getPrice() const;
+    float getPrice() const;
 
-    void setPrice(int price);
+    void setPrice(float price);
 
     const string &getName() const;
+
+    void setName(const string &name);
+
+    int getId() const;
+
+    void setId(int id);
 
 };
 

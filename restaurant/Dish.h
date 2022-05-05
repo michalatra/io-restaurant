@@ -17,13 +17,19 @@ public:
 
     void setIngredients(const vector<Ingredient> &ingredients);
 
-    int getPrice() const;
+    float getPrice() const;
 
-    void setPrice(int price);
+    void setPrice(float price);
 
     const string &getName() const;
 
     void addIngredient(Ingredient ingredient);
+
+    void removeIngredient(Ingredient ingredient);
+
+    void setId(int id);
+
+    void setName(const string &name);
 
     int getId() const;
 
@@ -31,7 +37,7 @@ private:
     int id;
     string name;
     vector<Ingredient> ingredients;
-    int price;
+    float price;
 };
 
 

@@ -10,10 +10,9 @@ class Menu {
     vector<Dish> dishList;
 public:
     Menu(const vector<Dish> &dish);
-
     void addDish(Dish dish);
-
-    void deleteDish(int d);
+    void removeDish(Dish dish);
+    void modifyDish(string name, Dish dish);
 };
 
 

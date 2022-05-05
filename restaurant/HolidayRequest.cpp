@@ -7,3 +7,13 @@
 void HolidayRequest::changeAcceptState(bool state) {
     isAccepted = state;
 }
+
+void HolidayRequest::modifyStartDate(tm date) {
+    holidayStartDate = date;
+}
+
+void HolidayRequest::modifyFinDate(tm date) {
+    holidayFinDate = date;
+}
+
+

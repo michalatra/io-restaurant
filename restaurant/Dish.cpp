@@ -16,11 +16,11 @@ void Dish::setIngredients(const vector<Ingredient> &ingredients) {
     Dish::ingredients = ingredients;
 }
 
-int Dish::getPrice() const {
+float Dish::getPrice() const {
     return price;
 }
 
-void Dish::setPrice(int price) {
+void Dish::setPrice(float price) {
     Dish::price = price;
 }
 
@@ -34,6 +34,23 @@ void Dish::addIngredient(Ingredient ingredient){
 
 int Dish::getId() const {
     return id;
+}
+
+void Dish::removeIngredient(Ingredient ingredient) {
+    for (auto i=ingredients.begin(); i != ingredients.end(); i++) {
+        if (i->getId() == ingredient.getId()) {
+            ingredients.erase(i);
+            break;
+        }
+    }
+}
+
+void Dish::setId(int id) {
+    Dish::id = id;
+}
+
+void Dish::setName(const string &name) {
+    Dish::name = name;
 }
 
 

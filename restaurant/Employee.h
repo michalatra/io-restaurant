@@ -6,8 +6,17 @@
 #define RESTAURANT_EMPLOYEE_H
 
 
-class Employee {
+#include "Schedule.h"
+#include <vector>
 
+class Task;
+class HolidayRequest;
+
+class Employee {
+    Schedule schedule;
+    std::vector<Task> tasks;
+    std::string position;
+    std::vector<HolidayRequest> requests;
 };
 
 
