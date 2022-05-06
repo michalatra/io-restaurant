@@ -12,7 +12,7 @@
 
 class Order {
     int orderId;
-    Client client;
+    int clientId;
     std::vector<Dish> dishList;
     float summedPrice;
     bool isRealised;
@@ -31,9 +31,9 @@ public:
 
     void setOrderId(int orderId);
 
-    const Client &getClient() const;
+    int getClientId() const;
 
-    void setClient(const Client &client);
+    void setClientId(int clientId);
 
     const vector<Dish> &getDishList() const;
 

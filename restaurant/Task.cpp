@@ -3,7 +3,6 @@
 //
 
 #include "Task.h"
-#include "Employee.h"
 
 const std::string &Task::getDescription() const {
     return description;
@@ -17,18 +16,26 @@ bool Task::getIsFinished() const {
     return isFinished;
 }
 
-const Employee &Task::getEmployee() const {
-    return employee;
-}
-
-void Task::setEmployee(const Employee &employee) {
-    Task::employee = employee;
-}
-
 void Task::setIsFinished(bool isFinished) {
     Task::isFinished = isFinished;
 }
 
 void Task::changeFinishState(bool state) {
     Task::isFinished = state;
+}
+
+int Task::getEmployeeId() const {
+    return employeeId;
+}
+
+void Task::setEmployeeId(int employeeId) {
+    Task::employeeId = employeeId;
+}
+
+int Task::getId() const {
+    return id;
+}
+
+void Task::setId(int id) {
+    Task::id = id;
 }

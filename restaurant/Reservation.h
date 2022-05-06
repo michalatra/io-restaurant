@@ -11,7 +11,7 @@
 
 class Reservation {
     int reservationId;
-    Client client;
+    int clientId;
     int numberOfPeople;
     tm date;
     bool isAccepted;
@@ -24,17 +24,17 @@ public:
 
     int getReservationId() const;
 
-    const Client &getClient() const;
+    int getClientId() const;
+
+    bool getIsAccepted() const;
+
+    bool getIsRealised() const;
+
+    bool getIsCanceled() const;
 
     int getNumberOfPeople() const;
 
     const tm &getDate() const;
-
-    bool isAccepted1() const;
-
-    bool isRealised1() const;
-
-    bool isCanceled1() const;
 
     void setNumberOfPeople(int numberOfPeople);
 

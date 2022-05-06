@@ -7,13 +7,12 @@
 
 
 #include <string>
-#include "Employee.h"
-
 
 class Task {
+    int id;
     std::string description;
     bool isFinished;
-    Employee employee;
+    int employeeId;
 
 public:
     void changeFinishState(bool state);
@@ -26,9 +25,13 @@ public:
 
     void setIsFinished(bool isFinished);
 
-    const Employee &getEmployee() const;
+    int getEmployeeId() const;
 
-    void setEmployee(const Employee &employee);
+    void setEmployeeId(int employeeId);
+
+    int getId() const;
+
+    void setId(int id);
 };
 
 

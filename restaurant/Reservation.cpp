@@ -14,9 +14,6 @@ int Reservation::getReservationId() const {
     return reservationId;
 }
 
-const Client &Reservation::getClient() const {
-    return client;
-}
 
 int Reservation::getNumberOfPeople() const {
     return numberOfPeople;
@@ -24,18 +21,6 @@ int Reservation::getNumberOfPeople() const {
 
 const tm &Reservation::getDate() const {
     return date;
-}
-
-bool Reservation::isAccepted1() const {
-    return isAccepted;
-}
-
-bool Reservation::isRealised1() const {
-    return isRealised;
-}
-
-bool Reservation::isCanceled1() const {
-    return isCanceled;
 }
 
 void Reservation::setNumberOfPeople(int numberOfPeople) {
@@ -56,4 +41,20 @@ void Reservation::setIsRealised(bool isRealised) {
 
 void Reservation::setIsCanceled(bool isCanceled) {
     Reservation::isCanceled = isCanceled;
+}
+
+int Reservation::getClientId() const {
+    return clientId;
+}
+
+bool Reservation::getIsAccepted() const {
+    return isAccepted;
+}
+
+bool Reservation::getIsRealised() const {
+    return isRealised;
+}
+
+bool Reservation::getIsCanceled() const {
+    return isCanceled;
 }

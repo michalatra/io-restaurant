@@ -12,14 +12,6 @@ void Order::setOrderId(int orderId) {
     Order::orderId = orderId;
 }
 
-const Client &Order::getClient() const {
-    return client;
-}
-
-void Order::setClient(const Client &client) {
-    Order::client = client;
-}
-
 const vector<Dish> &Order::getDishList() const {
     return dishList;
 }
@@ -74,4 +66,12 @@ bool Order::getIsCanceled() const {
 
 void Order::setIsCanceled(bool isCanceled) {
     Order::isCanceled = isCanceled;
+}
+
+int Order::getClientId() const {
+    return clientId;
+}
+
+void Order::setClientId(int clientId) {
+    Order::clientId = clientId;
 }
