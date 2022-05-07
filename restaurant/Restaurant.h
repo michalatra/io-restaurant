@@ -32,13 +32,15 @@ class Restaurant {
     LoginHandler loginHandler;
     RegisterHandler registerHandler;
 public:
+    Restaurant();
     string getOpenHours(int i) const;
     const vector<Client> &getClients() const;
     const std::vector<Reservation> &getReservations() const;
     const std::vector<Order> &getOrders() const;
     const std::vector<Employee> &getEmpoloyees() const;
     const std::vector<Task> &getAdministrators() const;
-    void setOpenHours();
+    void setOpenHours(string tab[]);
+    void setAddres(Address address1);
     void addEmployee(Employee employee);
     void addAdministrator(Administrator administrator);
     void addReservaton(Reservation reservation);
@@ -49,6 +51,8 @@ public:
     void deleteReservation(Reservation reservation);
     void registerUser();
     void addLoggerdInUser();
+    void showInfo();
+    const Address getAddress() const;
 
 
 
