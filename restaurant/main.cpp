@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Restaurant.h"
 #include "Reservation.h"
-void reserve(Restaurant *restaurant){
+void reserve(Restaurant restaurant){
     string date;
     string time;
     int people;
@@ -15,14 +15,14 @@ void reserve(Restaurant *restaurant){
         <<" "<<"zostala zlozona.\n"
                "Informacja o akceptacji rezerwacji zostanie wyslana na maila w ciagu 24h.\n";
 }
-void order(Restaurant *restaurant){
+void order(Restaurant restaurant){
     int choose;
     std::cout << "1 - zamowienie z odbiorem w lokalu\n ";
     std::cout << "2 - zamowienia z dowozem\n";
     Address address;
 
     std::cout<<"Menu:\n";
-    restaurant->getMenu().showMenu();
+    restaurant.getMenu().showMenu();
     std::cout<<"Aby zakonczyc skladanie zamowenia wpisz stop\n";
 
     string choice;
@@ -47,7 +47,7 @@ void order(Restaurant *restaurant){
     cout<<"\nZamowienie w trakcie przygotowania\n";
 
 }
-void clientLogged(Restaurant *restaurant){
+void clientLogged(Restaurant restaurant){
     int choose;
     std::cout << "1 - zloz zamowienie\n ";
     std::cout << "2 - pokaz menu\n";
@@ -60,17 +60,17 @@ void clientLogged(Restaurant *restaurant){
             break;
         case 2:
             std::cout<<"Menu:\n";
-            restaurant->getMenu().showMenu();
+            restaurant.getMenu().showMenu();
             break;
         case 3:
             reserve(restaurant);
             break;
         case 4:
-            restaurant->showInfo();
+            restaurant.showInfo();
             break;
     }
 }
-void logUser(Restaurant *restaurant){
+void logUser(Restaurant restaurant){
     string login;
     string password;
     cout<<"Login:\n";
@@ -80,7 +80,7 @@ void logUser(Restaurant *restaurant){
     cout<<login<<" jestes zalogowany.\n";
     clientLogged(restaurant);
 }
-void registerUser(Restaurant *restaurant){
+void registerUser(Restaurant restaurant){
     std::string login;
     std::string email;
     std::string password;
@@ -102,7 +102,7 @@ void registerUser(Restaurant *restaurant){
     cout<<"Gratulacje! Zarejestrowales sie\n";
     clientLogged(restaurant);
 }
-void start_fun(Restaurant *restaurant){
+void start_fun(Restaurant restaurant){
     int choose;
     std::cout << "Cześć! Wybierz, co chcesz zrobic." << std::endl;
     std::cout << "1 - zaloguj sie\n ";
@@ -113,18 +113,18 @@ void start_fun(Restaurant *restaurant){
 
     switch (choose) {
         case 1:
-            restaurant->addLoggerdInUser();
+
             logUser(restaurant);
             break;
         case 2:
-            restaurant->registerUser();
+
             registerUser(restaurant);
             break;
         case 3:
-            restaurant->getMenu().showMenu();
+            restaurant.getMenu().showMenu();
             break;
         case 4:
-            restaurant->showInfo();
+            restaurant.showInfo();
             break;
     }
 }
@@ -134,9 +134,9 @@ int main() {
 
     string open_hours[7]={"11.00-22.00","11.00-22.00", "11.00-22.00", "11.00-22.00", "12.00-24.00", "12.00-24.00", "12.00-24.00"  };
     Address address;
-    Restaurant *restaurant = new Restaurant();
-    restaurant->setOpenHours(open_hours);
-    restaurant->setAddres(address);
+    Restaurant restaurant = Restaurant();
+    restaurant.setOpenHours(open_hours);
+    restaurant.setAddres(address);
 
     start_fun(restaurant);
 
