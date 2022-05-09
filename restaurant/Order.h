@@ -6,7 +6,6 @@
 #define RESTAURANT_ORDER_H
 
 #include "vector"
-#include "Client.h"
 #include "Dish.h"
 #include "Address.h"
 

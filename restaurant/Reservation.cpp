@@ -4,12 +4,6 @@
 
 #include "Reservation.h"
 
-Reservation::Reservation(int reservationId, const Client &client, int numberOfPeople, const tm &date, bool isAccepted,
-                         bool isRealised, bool isCanceled) : reservationId(reservationId), client(client),
-                                                             numberOfPeople(numberOfPeople), date(date),
-                                                             isAccepted(isAccepted), isRealised(isRealised),
-                                                             isCanceled(isCanceled) {}
-
 int Reservation::getReservationId() const {
     return reservationId;
 }
@@ -58,3 +52,11 @@ bool Reservation::getIsRealised() const {
 bool Reservation::getIsCanceled() const {
     return isCanceled;
 }
+
+Reservation::Reservation(int reservationId, int clientId, int numberOfPeople, const tm &date, bool isAccepted,
+                         bool isRealised, bool isCanceled) : reservationId(reservationId), clientId(clientId),
+                                                             numberOfPeople(numberOfPeople), date(date),
+                                                             isAccepted(isAccepted), isRealised(isRealised),
+                                                             isCanceled(isCanceled) {}
+
+Reservation::Reservation() {}

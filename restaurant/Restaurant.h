@@ -15,8 +15,7 @@
 #include "LoginHandler.h"
 #include "RegisterHandler.h"
 #include "iostream"
-#include "vector"
-using namespace std;
+#include <vector>
 
 
 class Restaurant {
@@ -33,13 +32,13 @@ class Restaurant {
     RegisterHandler registerHandler;
 public:
     Restaurant();
-    string getOpenHours(int i) const;
-    const Menu getMenu() const;
-    const vector<Client> &getClients() const;
-    const std::vector<Reservation> &getReservations() const;
-    const std::vector<Order> &getOrders() const;
-    const std::vector<Employee> &getEmpoloyees() const;
-    const std::vector<Task> &getAdministrators() const;
+    string getOpenHours(int i);
+    Menu getMenu();
+    vector<Client> &getClients();
+    std::vector<Reservation> &getReservations();
+    std::vector<Order> &getOrders();
+    std::vector<Employee> &getEmpoloyees();
+    std::vector<Task> &getAdministrators();
     void setOpenHours(string tab[]);
     void setAddres(Address address1);
     void addEmployee(Employee employee);
@@ -53,7 +52,7 @@ public:
     void registerUser();
     void addLoggerdInUser();
     void showInfo();
-    const Address getAddress() const;
+    Address getAddress();
 
 
 

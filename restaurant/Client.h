@@ -8,8 +8,10 @@
 #include <vector>
 #include "Order.h"
 #include "Address.h"
+#include "Reservation.h"
 
 class Client {
+    int clientId;
     std::vector<Order> orderHistory;
     int bonusPoints;
     std::vector<Reservation> reservationHistory;

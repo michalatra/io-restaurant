@@ -7,7 +7,6 @@
 
 
 #include <ctime>
-#include "Client.h"
 
 class Reservation {
     int reservationId;
@@ -19,8 +18,10 @@ class Reservation {
     bool isCanceled;
 
 public:
-    Reservation(int reservationId, const Client &client, int numberOfPeople, const tm &date, bool isAccepted,
-                bool isRealised, bool isCanceled);
+    Reservation(int reservationId, int clientId, int numberOfPeople, const tm &date, bool isAccepted, bool isRealised,
+                bool isCanceled);
+
+    Reservation();
 
     int getReservationId() const;
 

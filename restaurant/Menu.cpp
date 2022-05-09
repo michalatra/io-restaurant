@@ -30,3 +30,7 @@ void Menu::showMenu() const {
 void Menu::modifyDish(string name, Dish dish) {
     dish.setName(name);
 }
+
+Menu::Menu() {
+    dishList = vector<Dish>();
+}

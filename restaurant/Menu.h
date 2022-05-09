@@ -9,11 +9,12 @@
 class Menu {
     vector<Dish> dishList;
 public:
+    Menu();
+
     Menu(const vector<Dish> &dish);
     void addDish(Dish dish);
     void removeDish(Dish dish);
     void modifyDish(string name, Dish dish);
-public:
     void showMenu() const;
 };
 

@@ -3,29 +3,32 @@
 //
 
 #include "Restaurant.h"
-string Restaurant::getOpenHours(int i) const{
+string Restaurant::getOpenHours(int i) {
     return Restaurant::openHours[i];
 }
 void Restaurant::setOpenHours(string tab[]){
     for(int i=0; i<7; i++){
-        //cout<<"Podaj godziny otwarcia w "<<i<<". dzien tygodnia"<<endl;
         Restaurant::openHours[i]=tab[i];
     }
 }
-const Menu Restaurant::getMenu() const {
+Menu Restaurant::getMenu()  {
     return menu;
 }
 void Restaurant::setAddres(Address address1) {
     Restaurant::address=address1;
 }
 
-const Address Restaurant::getAddress() const {
+Address Restaurant::getAddress()  {
     return address;
 }
 void Restaurant::showInfo() {
     for(int i=0; i<7; i++){
-        cout<<getOpenHours(i)<<endl;
+        std::cout<<getOpenHours(i)<<"\n";
     }
-    cout<<getAddress().getStreet()<<endl;
-    cout<<getAddress().getCity()<<endl;
+    std::cout<<getAddress().getStreet()<<"\n";
+    std::cout<<getAddress().getCity()<<"\n";
+}
+
+Restaurant::Restaurant() {
+
 }

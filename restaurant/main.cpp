@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Restaurant.h"
-#include "Reservation.h"
+
 void reserve(Restaurant restaurant){
     string date;
     string time;
@@ -15,6 +15,7 @@ void reserve(Restaurant restaurant){
         <<" "<<"zostala zlozona.\n"
                "Informacja o akceptacji rezerwacji zostanie wyslana na maila w ciagu 24h.\n";
 }
+
 void order(Restaurant restaurant){
     int choose;
     std::cout << "1 - zamowienie z odbiorem w lokalu\n ";
@@ -47,6 +48,7 @@ void order(Restaurant restaurant){
     cout<<"\nZamowienie w trakcie przygotowania\n";
 
 }
+
 void clientLogged(Restaurant restaurant){
     int choose;
     std::cout << "1 - zloz zamowienie\n ";
@@ -70,6 +72,7 @@ void clientLogged(Restaurant restaurant){
             break;
     }
 }
+
 void logUser(Restaurant restaurant){
     string login;
     string password;
@@ -80,6 +83,7 @@ void logUser(Restaurant restaurant){
     cout<<login<<" jestes zalogowany.\n";
     clientLogged(restaurant);
 }
+
 void registerUser(Restaurant restaurant){
     std::string login;
     std::string email;
@@ -102,6 +106,7 @@ void registerUser(Restaurant restaurant){
     cout<<"Gratulacje! Zarejestrowales sie\n";
     clientLogged(restaurant);
 }
+
 void start_fun(Restaurant restaurant){
     int choose;
     std::cout << "Cześć! Wybierz, co chcesz zrobic." << std::endl;
@@ -129,7 +134,6 @@ void start_fun(Restaurant restaurant){
     }
 }
 
-
 int main() {
 
     string open_hours[7]={"11.00-22.00","11.00-22.00", "11.00-22.00", "11.00-22.00", "12.00-24.00", "12.00-24.00", "12.00-24.00"  };
@@ -139,8 +143,6 @@ int main() {
     restaurant.setAddres(address);
 
     start_fun(restaurant);
-
-
 
     return 0;
 }
