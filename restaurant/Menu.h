@@ -13,6 +13,8 @@ public:
     void addDish(Dish dish);
     void removeDish(Dish dish);
     void modifyDish(string name, Dish dish);
+public:
+    void showMenu() const;
 };
 
 

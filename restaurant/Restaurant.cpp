@@ -12,6 +12,9 @@ void Restaurant::setOpenHours(string tab[]){
         Restaurant::openHours[i]=tab[i];
     }
 }
+const Menu Restaurant::getMenu() const {
+    return menu;
+}
 void Restaurant::setAddres(Address address1) {
     Restaurant::address=address1;
 }

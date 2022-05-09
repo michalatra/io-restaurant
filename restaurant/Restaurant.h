@@ -34,6 +34,7 @@ class Restaurant {
 public:
     Restaurant();
     string getOpenHours(int i) const;
+    const Menu getMenu() const;
     const vector<Client> &getClients() const;
     const std::vector<Reservation> &getReservations() const;
     const std::vector<Order> &getOrders() const;

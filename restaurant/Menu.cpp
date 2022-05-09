@@ -21,6 +21,11 @@ void Menu::removeDish(Dish dish){
 Menu::Menu(const vector<Dish> &dish) {
 
 }
+void Menu::showMenu() const {
+    for(int i=0; i<dishList.size(); i++){
+        cout<<dishList[i].getId()<<" - "<<dishList[i].getName()<<" ....... "<<dishList[i].getPrice()<<"zl"<<endl;
+    }
+}
 
 void Menu::modifyDish(string name, Dish dish) {
     dish.setName(name);
