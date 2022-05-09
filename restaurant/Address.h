@@ -14,6 +14,10 @@ class Address {
     std::string city;
 
 public:
+    Address();
+
+    Address(const std::string &street, const std::string &postalCode, const std::string &city);
+
     const std::string &getStreet() const;
 
     void setStreet(const std::string &street);

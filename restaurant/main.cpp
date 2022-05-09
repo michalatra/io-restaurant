@@ -1,148 +1,398 @@
 #include <iostream>
 #include "Restaurant.h"
+#include <string>
+#include "User.h"
 
-void reserve(Restaurant restaurant){
-    string date;
-    string time;
-    int people;
-    cout<<"Podaj termin (dd.mm):\n";
-    cin>>date;
-    cout<<"Podaj godzine rozpoczecia rezerwacji (hh:mm):\n";
-    cin>>time;
-    cout<<"Podaj ilosc osob:\n";
-    cin>>people;
-    cout<<"Rezerwacja "<<date<<" godz. "<<time<<" na "<<people
-        <<" "<<"zostala zlozona.\n"
-               "Informacja o akceptacji rezerwacji zostanie wyslana na maila w ciagu 24h.\n";
-}
+enum AppLevels {HOME, CLIENT_MENU, RESERVE_MENU, ORDER_MENU};
 
-void order(Restaurant restaurant){
-    int choose;
-    std::cout << "1 - zamowienie z odbiorem w lokalu\n ";
-    std::cout << "2 - zamowienia z dowozem\n";
-    Address address;
+class RestaurantApp {
+    Restaurant restaurant;
+    AppLevels menuLevel;
+    bool running;
+    User loggedUser;
 
-    std::cout<<"Menu:\n";
-    restaurant.getMenu().showMenu();
-    std::cout<<"Aby zakonczyc skladanie zamowenia wpisz stop\n";
-
-    string choice;
-    while(choice!="stop"){
-        std::cout<<"\nPodaj numer potrawy:\n";
-        cin>>choice;
-    }
-    string street, postalCode, city;
-    if(choose==1){
-        cout<<"Podaj adres zamowienia\n";
-        cout<<"Ulica, nr domu/nr mieszkania:\n";
-        cin>>street;
-        cout<<"Kod pocztowy:\n";
-        cin>>postalCode;
-        cout<<"Miasto\n";
-        cin>>city;
-        address.setCity(city);
-        address.setPostalCode(postalCode);
-        address.setStreet(street);
+    void printInvitation() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|            Restaurant App            |\n";
+        std::cout<<"|               Welcome                |\n";
+        std::cout<<"|______________________________________|\n";
+        std::cout<<"[INFO]: To perform any action follow instructions shown on the screen below.\n";
     }
 
-    cout<<"\nZamowienie w trakcie przygotowania\n";
+    void mainLoop() {
+        while(running) {
+            switch (menuLevel) {
+                case AppLevels::HOME: renderHomepage(); break;
+                case AppLevels::CLIENT_MENU: renderClientPage(); break;
+                case AppLevels::RESERVE_MENU: renderReservationPage(); break;
+            }
+        }
 
-}
-
-void clientLogged(Restaurant restaurant){
-    int choose;
-    std::cout << "1 - zloz zamowienie\n ";
-    std::cout << "2 - pokaz menu\n";
-    std::cout << "3 - zarezerwuj\n";
-    std::cout << "4 - zobacz informacje o restauracji \n";
-    cin>>choose;
-    switch (choose) {
-        case 1:
-            order(restaurant);
-            break;
-        case 2:
-            std::cout<<"Menu:\n";
-            restaurant.getMenu().showMenu();
-            break;
-        case 3:
-            reserve(restaurant);
-            break;
-        case 4:
-            restaurant.showInfo();
-            break;
+        renderGratitude();
     }
-}
 
-void logUser(Restaurant restaurant){
-    string login;
-    string password;
-    cout<<"Login:\n";
-    cin>>login;
-    cout<<"Hasło:\n";
-    cin>>password;
-    cout<<login<<" jestes zalogowany.\n";
-    clientLogged(restaurant);
-}
-
-void registerUser(Restaurant restaurant){
-    std::string login;
-    std::string email;
-    std::string password;
-    std::string name;
-    std::string surname;
-    std::string username;
-    cout<<"Email:\n";
-    cin>>email;
-    cout<<"Imie:\n";
-    cin>>name;
-    cout<<"Nazwisko:\n";
-    cin>>surname;
-    cout<<"Nazwa uzytkownika:\n";
-    cin>>username;
-    cout<<"Login:\n";
-    cin>>login;
-    cout<<"Hasło:\n";
-    cin>>password;
-    cout<<"Gratulacje! Zarejestrowales sie\n";
-    clientLogged(restaurant);
-}
-
-void start_fun(Restaurant restaurant){
-    int choose;
-    std::cout << "Cześć! Wybierz, co chcesz zrobic." << std::endl;
-    std::cout << "1 - zaloguj sie\n ";
-    std::cout << "2 - zarejestruj sie\n";
-    std::cout << "3 - menu\n";
-    std::cout << "4 - zobacz informacje o restauracji \n";
-    cin>>choose;
-
-    switch (choose) {
-        case 1:
-
-            logUser(restaurant);
-            break;
-        case 2:
-
-            registerUser(restaurant);
-            break;
-        case 3:
-            restaurant.getMenu().showMenu();
-            break;
-        case 4:
-            restaurant.showInfo();
-            break;
+    void renderGratitude() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|         Restaurant App Team          |\n";
+        std::cout<<"|      Thank You for using our app     |\n";
+        std::cout<<"|______________________________________|\n";
     }
-}
+
+    void renderHomepage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|              Home Page               |\n";
+        std::cout<<"|      Type corresponding command      |\n";
+        std::cout<<"|          to perform action           |\n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"| login    -> Login user               |\n";
+        std::cout<<"| register -> Register user            |\n";
+        std::cout<<"| menu     -> Show menu                |\n";
+        std::cout<<"| info     -> Show restaurant info     |\n";
+        std::cout<<"| end      -> Exit the application     |\n";
+        std::cout<<"|______________________________________|\n";
+
+        handleHomepageAction();
+    }
+
+    void handleHomepageAction() {
+        std::string userInput;
+        std::cout<<"Enter command: ";
+        std::cin>>userInput;
+
+        if (userInput == "login") handleLogin();
+        else if (userInput == "register") handleRegister();
+        else if (userInput == "menu") restaurant.getMenu().showMenu();
+        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "end") running = false;
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleHomepageAction();
+        }
+    }
+
+    void renderLoginPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|               Login Page             |\n";
+        std::cout<<"|          Enter your credentials      |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleLogin(){
+        renderLoginPage();
+
+        std::string username;
+        std::string password;
+
+        std::cout<<"Type username: ";
+        std::cin>>username;
+        cout<<"Type password: ";
+        std::cin>>password;
+
+        cout<<username<<" logged in.\n";
+        menuLevel = AppLevels::CLIENT_MENU;
+    }
+
+    void renderRegisterPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|             Register Page            |\n";
+        std::cout<<"|          Enter your credentials      |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleRegister(){
+        renderRegisterPage();
+
+        std::string email;
+        std::string name;
+        std::string surname;
+        std::string username;
+        std::string password;
+        std::string repPassword;
+
+        std::cout<<"Type email: ";
+        std::cin>>email;
+        std::cout<<"Type name: ";
+        std::cin>>name;
+        std::cout<<"Type surname: ";
+        std::cin>>surname;
+        std::cout<<"Type username: ";
+        std::cin>>username;
+        cout<<"Type password: ";
+        std::cin>>password;
+        cout<<"Retype password: ";
+        std::cin>>repPassword;
+
+        cout<<username<<" registered.\n";
+        menuLevel = AppLevels::CLIENT_MENU;
+
+    }
+
+    void renderClientPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|            Client Page               |\n";
+        std::cout<<"|      Type corresponding command      |\n";
+        std::cout<<"|          to perform action           |\n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"| order        -> Make an order        |\n";
+        std::cout<<"| reservations -> Reservations menu    |\n";
+        std::cout<<"| menu         -> Show menu            |\n";
+        std::cout<<"| info         -> Show restaurant info |\n";
+        std::cout<<"| logout       -> Log out              |\n";
+        std::cout<<"| end          -> Exit the application |\n";
+        std::cout<<"|______________________________________|\n";
+
+        handleClientPageAction();
+    }
+
+    void handleClientPageAction(){
+        std::string userInput;
+        std::cout<<"Enter command: ";
+        std::cin>>userInput;
+
+        if (userInput == "order") menuLevel = AppLevels::ORDER_MENU;
+        else if (userInput == "reservations") menuLevel = AppLevels::RESERVE_MENU;
+        else if (userInput == "menu") restaurant.getMenu().showMenu();
+        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "logout") handleLogoutAction();
+        else if (userInput == "end") running = false;
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleClientPageAction();
+        }
+    }
+
+    void handleLogoutAction() {
+        std::string confirmation;
+        std::cout<<"[INFO]: Are you sure you want to log out? [y/n]: ";
+        std::cin>>confirmation;
+
+        if (confirmation == "y") handleLogout();
+    }
+
+    void handleLogout() {
+        menuLevel = AppLevels::HOME;
+    }
+
+    void renderReservationPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|           Reservation Page           |\n";
+        std::cout<<"|      Type corresponding command      |\n";
+        std::cout<<"|          to perform action           |\n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"| reserve  -> Make a reservation       |\n";
+        std::cout<<"| list     -> Show your reservations   |\n";
+        std::cout<<"| back     -> Return to previous page  |\n";
+        std::cout<<"|______________________________________|\n";
+
+        handleReservationActions();
+    }
+
+    void handleReservationActions() {
+        std::string userInput;
+        std::cout<<"Enter command: ";
+        std::cin>>userInput;
+
+        if (userInput == "reserve") handleReserveAction();
+        else if (userInput == "list") handleListReservationsAction();
+        else if (userInput == "back") menuLevel = AppLevels::CLIENT_MENU;
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleReservationActions();
+        }
+    }
+
+    void renderReserveHeader() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|             Reserve Page             |\n";
+        std::cout<<"|        Enter reservation details     |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void renderReservationDetails(std::string reservationDate, std::string reservationTime, int numberOfPeople) {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|           Your reservation           |\n";
+        std::cout<<"| Date: "<<reservationDate<<"                          |\n";
+        std::cout<<"| Time: "<<reservationTime<<"                          |\n";
+        std::cout<<"| People: "<<numberOfPeople<<"                            |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleReserveAction(){
+        std::string reservationDate;
+        std::string reservationTime;
+        int numberOfPeople;
+
+        renderReserveHeader();
+
+        cout<<"Set reservation date [dd.mm]: ";
+        std::cin>>reservationDate;
+        cout<<"Set reservation time [hh:mm]: ";
+        std::cin>>reservationTime;
+        cout<<"Set number of people: ";
+        std::cin>>numberOfPeople;
+
+        renderReservationDetails(reservationDate, reservationTime, numberOfPeople);
+
+        std::string confirmation;
+        std::cout<<"[INFO]: Do you want to confirm this reservation? [y/n]: ";
+        std::cin>>confirmation;
+
+        if (confirmation == "y") handleReserve(reservationDate, reservationTime, numberOfPeople);
+        else std::cout<<"[INFO]: Reservation canceled.\n";
+    }
+
+    void handleReserve(std::string reservationDate, std::string reservationTime, int numberOfPeople) {
+        std::cout<<"[INFO]: Your reservation has been accepted.\n";
+    }
+
+    void handleListReservationsAction() {
+
+    }
+
+    void renderOrdersPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|           Reservation Page           |\n";
+        std::cout<<"|      Type corresponding command      |\n";
+        std::cout<<"|          to perform action           |\n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"| order    -> Make an order            |\n";
+        std::cout<<"| list     -> Show your orders         |\n";
+        std::cout<<"| back     -> Return to previous page  |\n";
+        std::cout<<"|______________________________________|\n";
+
+        handleOrdersActions();
+    }
+
+    void handleOrdersActions() {
+        std::string userInput;
+        std::cout<<"Enter command: ";
+        std::cin>>userInput;
+
+        if (userInput == "order") handleOrderAction();
+        else if (userInput == "list") handleListOrdersAction();
+        else if (userInput == "back") menuLevel = AppLevels::CLIENT_MENU;
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleOrdersActions();
+        }
+    }
+
+    void renderOrderHeader() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|              Order Page              |\n";
+        std::cout<<"|          Enter order details         |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void renderOrderDetails(Order* order) {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|              Your order              |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleOrderAction(){
+        renderOrderHeader();
+        handleOrderTypeSelect();
+    }
+
+    void handleOrderTypeSelect() {
+        std::string orderType;
+        std::cout<<"[INFO]: Select order type [delivery/pickup]: ";
+        std::cin>>orderType;
+
+        if (orderType == "delivery") handleDeliveryOrder();
+        else if (orderType == "pickup") handleOrder(nullptr);
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleOrderTypeSelect();
+        }
+    }
+
+    void handleDeliveryOrder() {
+        Address* address = new Address();
+        std::string street;
+        std::string postalCode;
+        std::string city;
+
+        std::cout<<"Enter street: ";
+        std::cin>>street;
+        std::cout<<"Enter postal code: ";
+        std::cin>>postalCode;
+        std::cout<<"Enter city: ";
+        std::cin>>city;
+
+        address->setStreet(street);
+        address->setPostalCode(postalCode);
+        address->setCity(city);
+
+        handleOrder(address);
+    }
+
+    void handleOrder(Address* address) {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|                  Menu                |\n";
+        std::cout<<"|       Pick dishes for your order     |\n";
+        std::cout<<"|    To finish your order type 'end'   |\n";
+        std::cout<<"|______________________________________|\n";
+
+        Order* order = new Order();
+
+        restaurant.getMenu().showMenu();
+
+        std::string userInput;
+        while(userInput != "end"){
+            std::cout<<"\nSelect dish number: ";
+            std::cin>>userInput;
+        }
+
+        handleConfirmOrder(order);
+    }
+
+    void handleConfirmOrder(Order* order) {
+        renderOrderDetails(order);
+
+        std::string confirmation;
+        std::cout<<"[INFO]: Do you want to confirm this order? [y/n]: ";
+        std::cin>>confirmation;
+
+        if (confirmation == "y") handleMakeOrder(order);
+        else std::cout<<"[INFO]: Reservation canceled.\n";
+    }
+
+    void handleMakeOrder(Order* order) {
+        std::cout<<"[INFO]: Your order has been made. \n";
+    }
+
+
+    void handleListOrdersAction() {
+
+    }
+
+
+public:
+    RestaurantApp() {
+        restaurant = Restaurant();
+        menuLevel = AppLevels::HOME;
+    }
+
+    void run() {
+        printInvitation();
+        mainLoop();
+    }
+};
 
 int main() {
-
-    string open_hours[7]={"11.00-22.00","11.00-22.00", "11.00-22.00", "11.00-22.00", "12.00-24.00", "12.00-24.00", "12.00-24.00"  };
-    Address address;
-    Restaurant restaurant = Restaurant();
-    restaurant.setOpenHours(open_hours);
-    restaurant.setAddres(address);
-
-    start_fun(restaurant);
+    RestaurantApp app = RestaurantApp();
+    app.run();
 
     return 0;
 }

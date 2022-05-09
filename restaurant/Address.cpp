@@ -27,3 +27,10 @@ const std::string &Address::getCity() const {
 void Address::setCity(const std::string &city) {
     Address::city = city;
 }
+
+Address::Address() {}
+
+Address::Address(const std::string &street, const std::string &postalCode, const std::string &city) : street(street),
+                                                                                                      postalCode(
+                                                                                                              postalCode),
+                                                                                                      city(city) {}
