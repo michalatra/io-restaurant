@@ -3,7 +3,7 @@
 #include <string>
 #include "User.h"
 
-enum AppLevels {HOME, CLIENT_MENU, RESERVE_MENU, ORDER_MENU};
+enum AppLevels {HOME, CLIENT_MENU, RESERVE_MENU, ORDER_MENU, EMPLOYEE_MENU, ADMIN_MENU};
 
 class RestaurantApp {
     Restaurant restaurant;
@@ -20,12 +20,22 @@ class RestaurantApp {
         std::cout<<"[INFO]: To perform any action follow instructions shown on the screen below.\n";
     }
 
+    void printInBuild() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|              App in build            |\n";
+        std::cout<<"|  This option is not implemented yet  |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
     void mainLoop() {
         while(running) {
             switch (menuLevel) {
                 case AppLevels::HOME: renderHomepage(); break;
                 case AppLevels::CLIENT_MENU: renderClientPage(); break;
                 case AppLevels::RESERVE_MENU: renderReservationPage(); break;
+                case AppLevels::ADMIN_MENU: renderAdminPage(); break;
+                case AppLevels::EMPLOYEE_MENU: renderEmployeePage(); break;
             }
         }
 
@@ -50,6 +60,8 @@ class RestaurantApp {
         std::cout<<"| register -> Register user            |\n";
         std::cout<<"| menu     -> Show menu                |\n";
         std::cout<<"| info     -> Show restaurant info     |\n";
+        std::cout<<"| employee -> Show employee panel      |\n";
+        std::cout<<"| admin    -> Show administrator panel |\n";
         std::cout<<"| end      -> Exit the application     |\n";
         std::cout<<"|______________________________________|\n";
 
@@ -65,11 +77,139 @@ class RestaurantApp {
         else if (userInput == "register") handleRegister();
         else if (userInput == "menu") restaurant.getMenu().showMenu();
         else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "employee") handleEmployeeLogin();
+        else if (userInput == "admin") handleAdminLogin();
         else if (userInput == "end") running = false;
         else {
             std::cout<<"[INFO]: I don't understand retype your command.\n";
             handleHomepageAction();
         }
+    }
+
+    void renderAdminPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|             Admin Page               |\n";
+        std::cout<<"|      Type corresponding command      |\n";
+        std::cout<<"|          to perform action           |\n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"| editMenu    -> Edit current menu     |\n";
+        std::cout<<"| editTasks   -> Edit current tasks    |\n";
+        std::cout<<"| assignTask  -> Assign the task       |\n";
+        std::cout<<"| assignSched -> Assign the schedule   |\n";
+        std::cout<<"| accReq      -> Accept request        |\n";
+        std::cout<<"| menu        -> Show menu             |\n";
+        std::cout<<"| info        -> Show restaurant info  |\n";
+        std::cout<<"| logout      -> Log out               |\n";
+        std::cout<<"| end         -> Exit the application  |\n";
+        std::cout<<"|______________________________________|\n";
+
+        handleAdminPageAction();
+    }
+
+    void handleAdminPageAction() {
+        std::string userInput;
+        std::cout<<"Enter command: ";
+        std::cin>>userInput;
+
+        if (userInput == "editMenu") printInBuild();
+        else if (userInput == "editTasks") printInBuild();
+        else if (userInput == "assignTask") printInBuild();
+        else if (userInput == "assignSched") printInBuild();
+        else if (userInput == "accReq") printInBuild();
+        else if (userInput == "menu") restaurant.getMenu().showMenu();
+        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "logout") handleLogoutAction();
+        else if (userInput == "end") running = false;
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleAdminPageAction();
+        }
+    }
+
+    void renderEmployeePage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|           Employee Page              |\n";
+        std::cout<<"|      Type corresponding command      |\n";
+        std::cout<<"|          to perform action           |\n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"| schedule  -> Show schedule           |\n";
+        std::cout<<"| addTask   -> Add new task            |\n";
+        std::cout<<"| addReq    -> Create new request      |\n";
+        std::cout<<"| accOrd    -> Accept orders            |\n";
+        std::cout<<"| orders    -> Show current orders     |\n";
+        std::cout<<"| menu      -> Show menu               |\n";
+        std::cout<<"| info      -> Show restaurant info    |\n";
+        std::cout<<"| logout    -> Log out                 |\n";
+        std::cout<<"| end       -> Exit the application    |\n";
+        std::cout<<"|______________________________________|\n";
+
+        handleEmployeePageAction();
+    }
+
+    void handleEmployeePageAction() {
+        std::string userInput;
+        std::cout<<"Enter command: ";
+        std::cin>>userInput;
+
+        if (userInput == "schedule") printInBuild();
+        else if (userInput == "addTask") printInBuild();
+        else if (userInput == "accReq") printInBuild();
+        else if (userInput == "accOrd") printInBuild();
+        else if (userInput == "orders") printInBuild();
+        else if (userInput == "menu") restaurant.getMenu().showMenu();
+        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "logout") handleLogoutAction();
+        else if (userInput == "end") running = false;
+        else {
+            std::cout<<"[INFO]: I don't understand retype your command.\n";
+            handleEmployeePageAction();
+        }
+    }
+
+    void renderAdminLoginHeader() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|            Admin Login Page          |\n";
+        std::cout<<"|          Enter your credentials      |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleAdminLogin() {
+        renderAdminLoginHeader();
+
+        std::string username;
+        std::string password;
+
+        std::cout<<"Type username: ";
+        std::cin>>username;
+        cout<<"Type password: ";
+        std::cin>>password;
+
+        cout<<"[INFO]: Admin "<<username<<" successfully logged in.\n";
+        menuLevel = AppLevels::ADMIN_MENU;
+    }
+
+    void renderEmployeeLoginHeader() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|           Employee Login Page        |\n";
+        std::cout<<"|          Enter your credentials      |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleEmployeeLogin() {
+        renderEmployeeLoginHeader();
+
+        std::string username;
+        std::string password;
+
+        std::cout<<"Type username: ";
+        std::cin>>username;
+        cout<<"Type password: ";
+        std::cin>>password;
+
+        cout<<"[INFO]: Employee "<<username<<" successfully logged in.\n";
+        menuLevel = AppLevels::EMPLOYEE_MENU;
     }
 
     void renderLoginPage() {
@@ -91,7 +231,7 @@ class RestaurantApp {
         cout<<"Type password: ";
         std::cin>>password;
 
-        cout<<username<<" logged in.\n";
+        cout<<"[INFO]: User "<<username<<" successfully logged in.\n";
         menuLevel = AppLevels::CLIENT_MENU;
     }
 
