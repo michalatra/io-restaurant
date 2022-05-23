@@ -29,6 +29,8 @@ public:
     const std::string &getCity() const;
 
     void setCity(const std::string &city);
+
+    std::string getAddressString();
 };
 
 

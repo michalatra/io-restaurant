@@ -6,7 +6,7 @@
 enum AppLevels {HOME, CLIENT_MENU, RESERVE_MENU, ORDER_MENU, EMPLOYEE_MENU, ADMIN_MENU};
 
 class RestaurantApp {
-    Restaurant restaurant;
+    Restaurant* restaurant;
     AppLevels menuLevel;
     bool running;
     User loggedUser;
@@ -75,8 +75,8 @@ class RestaurantApp {
 
         if (userInput == "login") handleLogin();
         else if (userInput == "register") handleRegister();
-        else if (userInput == "menu") restaurant.getMenu().showMenu();
-        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "menu") restaurant->getMenu()->showMenu();
+        else if (userInput == "info") restaurant->showInfo();
         else if (userInput == "employee") handleEmployeeLogin();
         else if (userInput == "admin") handleAdminLogin();
         else if (userInput == "end") running = false;
@@ -116,8 +116,8 @@ class RestaurantApp {
         else if (userInput == "assignTask") printInBuild();
         else if (userInput == "assignSched") printInBuild();
         else if (userInput == "accReq") printInBuild();
-        else if (userInput == "menu") restaurant.getMenu().showMenu();
-        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "menu") restaurant->getMenu()->showMenu();
+        else if (userInput == "info") restaurant->showInfo();
         else if (userInput == "logout") handleLogoutAction();
         else if (userInput == "end") running = false;
         else {
@@ -156,8 +156,8 @@ class RestaurantApp {
         else if (userInput == "accReq") printInBuild();
         else if (userInput == "accOrd") printInBuild();
         else if (userInput == "orders") printInBuild();
-        else if (userInput == "menu") restaurant.getMenu().showMenu();
-        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "menu") restaurant->getMenu()->showMenu();
+        else if (userInput == "info") restaurant->showInfo();
         else if (userInput == "logout") handleLogoutAction();
         else if (userInput == "end") running = false;
         else {
@@ -295,8 +295,8 @@ class RestaurantApp {
 
         if (userInput == "order") menuLevel = AppLevels::ORDER_MENU;
         else if (userInput == "reservations") menuLevel = AppLevels::RESERVE_MENU;
-        else if (userInput == "menu") restaurant.getMenu().showMenu();
-        else if (userInput == "info") restaurant.showInfo();
+        else if (userInput == "menu") restaurant->getMenu()->showMenu();
+        else if (userInput == "info") restaurant->showInfo();
         else if (userInput == "logout") handleLogoutAction();
         else if (userInput == "end") running = false;
         else {
@@ -486,7 +486,7 @@ class RestaurantApp {
 
         Order* order = new Order();
 
-        restaurant.getMenu().showMenu();
+        restaurant->getMenu()->showMenu();
 
         std::string userInput;
         while(userInput != "end"){
@@ -520,8 +520,10 @@ class RestaurantApp {
 
 public:
     RestaurantApp() {
-        restaurant = Restaurant();
+        restaurant = Restaurant::getInstance();
         menuLevel = AppLevels::HOME;
+//        restaurant = nullptr;
+        running = true;
     }
 
     void run() {

@@ -34,3 +34,7 @@ Address::Address(const std::string &street, const std::string &postalCode, const
                                                                                                       postalCode(
                                                                                                               postalCode),
                                                                                                       city(city) {}
+
+std::string Address::getAddressString() {
+    return street + ", " + postalCode + ", " + city;
+}

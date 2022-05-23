@@ -9,8 +9,9 @@
 #include "Order.h"
 #include "Address.h"
 #include "Reservation.h"
+#include "User.h"
 
-class Client {
+class Client: User {
     int clientId;
     std::vector<Order> orderHistory;
     int bonusPoints;

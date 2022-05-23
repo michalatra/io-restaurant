@@ -9,7 +9,7 @@
 using namespace std;
 
 class RegisterHandler {
-    User user;
+    User* user;
     string* getData();
     void validateUsername();
     void saveUser();
