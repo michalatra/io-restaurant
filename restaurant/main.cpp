@@ -44,6 +44,7 @@ class RestaurantApp {
             switch (menuLevel) {
                 case AppLevels::HOME: renderHomepage(); break;
                 case AppLevels::CLIENT_MENU: renderClientPage(); break;
+                case AppLevels::ORDER_MENU: renderOrdersPage(); break;
                 case AppLevels::RESERVE_MENU: renderReservationPage(); break;
                 case AppLevels::ADMIN_MENU: renderAdminPage(); break;
                 case AppLevels::EMPLOYEE_MENU: renderEmployeePage(); break;
@@ -170,7 +171,7 @@ class RestaurantApp {
         else if (userInput == "addTask") printInBuild();
         else if (userInput == "accReq") printInBuild();
         else if (userInput == "accOrd") printInBuild();
-        else if (userInput == "orders") printInBuild();
+        else if (userInput == "orders") renderCurrentOrders();
         else if (userInput == "menu") restaurant->getMenu()->showMenu();
         else if (userInput == "info") restaurant->showInfo();
         else if (userInput == "logout") handleLogoutAction();
@@ -179,6 +180,16 @@ class RestaurantApp {
             std::cout<<"[INFO]: I don't understand retype your command.\n";
             handleEmployeePageAction();
         }
+    }
+
+    void renderCurrentOrders() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|            Current Orders            |\n";
+        std::cout<<"|______________________________________|\n";
+
+        for (auto order: *restaurant->getOrders())
+            order->printOrder();
     }
 
     void renderEditMenuPage() {
@@ -224,12 +235,12 @@ class RestaurantApp {
 
     void handleAddDish() {
         std::string dishName;
-        int dishPrice;
+        float dishPrice;
         std::vector<Ingredient*>* ingredients = new std::vector<Ingredient*>();
         handleInitializeDish(dishName, dishPrice, ingredients);
     }
 
-    void handleInitializeDish(std::string &dishName, int &dishPrice, std::vector<Ingredient*>* ingredients) {
+    void handleInitializeDish(std::string &dishName, float &dishPrice, std::vector<Ingredient*>* ingredients) {
         std::cout<<"Enter dish name: ";
         std::cin>>dishName;
         std::cout<<"Enter dish price: ";
@@ -251,7 +262,7 @@ class RestaurantApp {
     }
 
     void initializeIngredients(std::vector<Ingredient*>* ingredients) {
-        std::cout<<"[INFO]: Initializing ingredients.";
+        std::cout<<"[INFO]: Initializing ingredients.\n";
 
         std::string command = "add";
         std::string name;
@@ -283,7 +294,15 @@ class RestaurantApp {
     }
 
     void handleRemoveDish() {
+        restaurant->getMenu()->showMenu();
 
+        int index;
+        std::cout<<"Enter index of dish to remove: ";
+        std::cin>>index;
+
+        restaurant->getMenu()->removeDish(index);
+        std::cout<<"[INFO]: The dish was removed.\n";
+        menuLevel = AppLevels::EDIT_MENU_MENU;
     }
 
     void renderModifyDishPage() {
@@ -296,7 +315,23 @@ class RestaurantApp {
     }
 
     void handleModifyDish() {
+        restaurant->getMenu()->showMenu();
 
+        int index;
+        std::string dishName;
+        float dishPrice;
+
+        std::cout<<"Enter index of dish to modify: ";
+        std::cin>>index;
+        std::cout<<"Enter new dish name: ";
+        std::cin>>dishName;
+        std::cout<<"Enter new dish price: ";
+        std::cin>>dishPrice;
+
+        restaurant->getMenu()->modifyDish(dishName, dishPrice, index);
+
+        std::cout<<"[INFO]: The dish was modified.\n";
+        menuLevel = AppLevels::EDIT_MENU_MENU;
     }
 
     void renderAdminLoginHeader() {
@@ -530,7 +565,7 @@ class RestaurantApp {
 
     void renderOrdersPage() {
         std::cout<<" ______________________________________ \n";
-        std::cout<<"|           Reservation Page           |\n";
+        std::cout<<"|              Orders Page             |\n";
         std::cout<<"|      Type corresponding command      |\n";
         std::cout<<"|          to perform action           |\n";
         std::cout<<"|                                      |\n";
@@ -614,17 +649,32 @@ class RestaurantApp {
         std::cout<<"|                                      |\n";
         std::cout<<"|                  Menu                |\n";
         std::cout<<"|       Pick dishes for your order     |\n";
-        std::cout<<"|    To finish your order type 'end'   |\n";
+        std::cout<<"|    To finish your order type '-1'   |\n";
         std::cout<<"|______________________________________|\n";
 
         Order* order = new Order();
-
+        order->setAddress(address);
         restaurant->getMenu()->showMenu();
 
-        std::string userInput;
-        while(userInput != "end"){
+        int dishId;
+        while(dishId != -1){
             std::cout<<"\nSelect dish number: ";
-            std::cin>>userInput;
+            std::cin>>dishId;
+            order->addDish(restaurant->getMenu()->getDish(dishId));
+        }
+
+        std::string paymentType;
+
+        while (true) {
+            std::cout<<"\nSelect payment type (card/cash): ";
+            std::cin>>paymentType;
+
+            if (paymentType == "card" || paymentType == "cash") {
+                order->setPaymentType(paymentType);
+                break;
+            } else {
+                std::cout<<"[INFO]: I don't understand retype your command.\n";
+            }
         }
 
         handleConfirmOrder(order);
@@ -638,11 +688,12 @@ class RestaurantApp {
         std::cin>>confirmation;
 
         if (confirmation == "y") handleMakeOrder(order);
-        else std::cout<<"[INFO]: Reservation canceled.\n";
+        else std::cout<<"[INFO]: Order canceled.\n";
     }
 
     void handleMakeOrder(Order* order) {
         std::cout<<"[INFO]: Your order has been made. \n";
+        restaurant->addOrder(order);
     }
 
 
@@ -655,7 +706,6 @@ public:
     RestaurantApp() {
         restaurant = Restaurant::getInstance();
         menuLevel = AppLevels::HOME;
-//        restaurant = nullptr;
         running = true;
     }
 

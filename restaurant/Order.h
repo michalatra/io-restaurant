@@ -1,7 +1,3 @@
-//
-// Created by micha on 05.05.2022.
-//
-
 #ifndef RESTAURANT_ORDER_H
 #define RESTAURANT_ORDER_H
 
@@ -12,15 +8,16 @@
 class Order {
     int orderId;
     int clientId;
-    std::vector<Dish> dishList;
+    std::vector<Dish*>* dishList;
     float summedPrice;
     bool isRealised;
     bool onDelivery;
     bool isCanceled;
-    Address address;
+    Address* address;
     std::string paymentType;
 
 public:
+    Order();
 
     bool getIsCanceled() const;
 
@@ -34,9 +31,7 @@ public:
 
     void setClientId(int clientId);
 
-    const std::vector<Dish> &getDishList() const;
-
-    void setDishList(std::vector<Dish> &dishList);
+    std::vector<Dish*>* getDishList();
 
     float getSummedPrice() const;
 
@@ -50,13 +45,17 @@ public:
 
     void setOnDelivery(bool onDelivery);
 
-    const Address &getAddress() const;
+    Address* getAddress();
 
-    void setAddress(const Address &address);
+    void setAddress(Address* address);
 
     const std::string &getPaymentType() const;
 
     void setPaymentType(const std::string &paymentType);
+
+    void addDish(Dish* d);
+
+    void printOrder();
 };
 
 

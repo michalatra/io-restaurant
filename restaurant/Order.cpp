@@ -4,6 +4,10 @@
 
 #include "Order.h"
 
+Order::Order() {
+    dishList = new std::vector<Dish*>();
+}
+
 int Order::getOrderId() const {
     return orderId;
 }
@@ -12,12 +16,8 @@ void Order::setOrderId(int orderId) {
     Order::orderId = orderId;
 }
 
-const std::vector<Dish> &Order::getDishList() const {
+std::vector<Dish*>* Order::getDishList() {
     return dishList;
-}
-
-void Order::setDishList(std::vector<Dish> &dishList) {
-    Order::dishList = dishList;
 }
 
 float Order::getSummedPrice() const {
@@ -40,11 +40,11 @@ void Order::setOnDelivery(bool onDelivery) {
     Order::onDelivery = onDelivery;
 }
 
-const Address &Order::getAddress() const {
+Address* Order::getAddress() {
     return address;
 }
 
-void Order::setAddress(const Address &address) {
+void Order::setAddress(Address* address) {
     Order::address = address;
 }
 
@@ -74,4 +74,21 @@ int Order::getClientId() const {
 
 void Order::setClientId(int clientId) {
     Order::clientId = clientId;
+}
+
+void Order::addDish(Dish *d) {
+    dishList->push_back(d);
+}
+
+void Order::printOrder() {
+    std::cout<<"-------------------------------\n";
+    std::cout<<"Order id: "<<orderId<<"\n";
+    std::cout<<"Client id: "<<clientId<<"\n";
+    std::cout<<"Number of dishes: "<<dishList->size()<<"\n";
+    std::cout<<"Is realised: "<<isRealised<<"\n";
+    std::cout<<"Is canceled: "<<isCanceled<<"\n";
+    std::cout<<"On delivery: "<<onDelivery<<"\n";
+    std::cout<<"Payment type: "<<paymentType<<"\n";
+    std::cout<<"Address: "<<address.getAddressString()<<"\n";
+    std::cout<<"-------------------------------\n";
 }

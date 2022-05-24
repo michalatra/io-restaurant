@@ -6,13 +6,14 @@
 
 
 void Menu::addDish(Dish* dish){
-    dish->setId(dishList->size());
+    dish->setId(index);
+    index++;
     Menu::dishList->push_back(dish);
 
 }
-void Menu::removeDish(Dish* dish){
+void Menu::removeDish(int dishId){
     for(auto d = dishList->begin(); d != dishList->end(); d++){
-        if((*d)->getId() == dish->getId()){
+        if((*d)->getId() == dishId){
             dishList->erase(d);
             break;
         }
@@ -21,6 +22,7 @@ void Menu::removeDish(Dish* dish){
 
 Menu::Menu() {
     dishList = new std::vector<Dish*>();
+    index = 0;
 }
 void Menu::showMenu() {
     std::cout<<" ______________________________________ \n";
@@ -39,5 +41,22 @@ void Menu::showMenu() {
 
 Menu *Menu::getInstance() {
     return new Menu();
+}
+
+void Menu::modifyDish(std::string name, float price, int dishId) {
+    for (auto d: *dishList) {
+        if (d->getId() == dishId) {
+            d->setName(name);
+            d->setPrice(price);
+        }
+    }
+}
+
+Dish *Menu::getDish(int dishId) {
+    for (auto d: *dishList)
+        if (d->getId() == dishId)
+            return d;
+
+    return nullptr;
 }
 

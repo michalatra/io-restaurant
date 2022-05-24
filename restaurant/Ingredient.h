@@ -9,7 +9,7 @@ class Ingredient {
     float price;
     std::string name;
 public:
-    Ingredient(std::string name, int quanity, int price);
+    Ingredient(std::string name, int quanity, float price);
 
     int getQuanity();
 

@@ -1,6 +1,6 @@
 #include "Ingredient.h"
 
-Ingredient::Ingredient(std::string name, int quanity, int price) : name(name), quanity(quanity), price(price) {}
+Ingredient::Ingredient(std::string name, int quanity, float price) : name(name), quanity(quanity), price(price) {}
 
 int Ingredient::getQuanity() {
     return quanity;

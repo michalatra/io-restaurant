@@ -4,13 +4,15 @@
 
 class Menu {
     std::vector<Dish*>* dishList;
+    int index;
     static Menu* instance;
     Menu();
 public:
     static Menu* getInstance();
     void addDish(Dish* dish);
-    void removeDish(Dish* dish);
-    void modifyDish(std::string* name, int price, Dish* dish);
+    void removeDish(int dishId);
+    void modifyDish(std::string name, float price, int dishId);
+    Dish* getDish(int dishId);
     void showMenu();
 };
 

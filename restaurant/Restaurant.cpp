@@ -99,11 +99,11 @@ void Restaurant::showInfo() {
     std::cout<<"|                                      |\n";
     std::cout<<"|          Restaurant Details          |\n";
     std::cout<<"|______________________________________|\n";
-    std::cout<<"Number of employees: "<<employees->size();
-    std::cout<<"Number of clients: "<<clients->size();
-    std::cout<<"Number of reservations: "<<reservations->size();
-    std::cout<<"Number of orders: "<<orders->size();
-    std::cout<<"Restaurant address: "<<address->getAddressString();
+    std::cout<<"Number of employees: "<<employees->size()<<"\n";
+    std::cout<<"Number of clients: "<<clients->size()<<"\n";
+    std::cout<<"Number of reservations: "<<reservations->size()<<"\n";
+    std::cout<<"Number of orders: "<<orders->size()<<"\n";
+    std::cout<<"Restaurant address: "<<address->getAddressString()<<"\n";
 }
 
 Address* Restaurant::getAddress() {
