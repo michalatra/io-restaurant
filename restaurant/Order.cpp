@@ -89,6 +89,6 @@ void Order::printOrder() {
     std::cout<<"Is canceled: "<<isCanceled<<"\n";
     std::cout<<"On delivery: "<<onDelivery<<"\n";
     std::cout<<"Payment type: "<<paymentType<<"\n";
-    std::cout<<"Address: "<<address.getAddressString()<<"\n";
+    std::cout<<"Address: "<<address->getAddressString()<<"\n";
     std::cout<<"-------------------------------\n";
 }

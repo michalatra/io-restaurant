@@ -77,7 +77,9 @@ class RestaurantApp {
         std::cout<<"| menu     -> Show menu                |\n";
         std::cout<<"| info     -> Show restaurant info     |\n";
         std::cout<<"| employee -> Show employee panel      |\n";
+        std::cout<<"| regEmp   -> Register employee        |\n";
         std::cout<<"| admin    -> Show administrator panel |\n";
+        std::cout<<"| regAdmin -> Register administrator   |\n";
         std::cout<<"| end      -> Exit the application     |\n";
         std::cout<<"|______________________________________|\n";
 
@@ -94,7 +96,9 @@ class RestaurantApp {
         else if (userInput == "menu") restaurant->getMenu()->showMenu();
         else if (userInput == "info") restaurant->showInfo();
         else if (userInput == "employee") handleEmployeeLogin();
+        else if (userInput == "regEmp") handleRegisterEmployee();
         else if (userInput == "admin") handleAdminLogin();
+        else if (userInput == "regAdmin") handleRegisterAdmin();
         else if (userInput == "end") running = false;
         else {
             std::cout<<"[INFO]: I don't understand retype your command.\n";
@@ -345,16 +349,10 @@ class RestaurantApp {
     void handleAdminLogin() {
         renderAdminLoginHeader();
 
-        std::string username;
-        std::string password;
-
-        std::cout<<"Type username: ";
-        std::cin>>username;
-        cout<<"Type password: ";
-        std::cin>>password;
-
-        cout<<"[INFO]: Admin "<<username<<" successfully logged in.\n";
-        menuLevel = AppLevels::ADMIN_MENU;
+        if (restaurant->administratorLogin())
+            menuLevel = AppLevels::ADMIN_MENU;
+        else
+            std::cout<<"[INFO]: Login has failed.\n";
     }
 
     void renderEmployeeLoginHeader() {
@@ -368,16 +366,10 @@ class RestaurantApp {
     void handleEmployeeLogin() {
         renderEmployeeLoginHeader();
 
-        std::string username;
-        std::string password;
-
-        std::cout<<"Type username: ";
-        std::cin>>username;
-        cout<<"Type password: ";
-        std::cin>>password;
-
-        cout<<"[INFO]: Employee "<<username<<" successfully logged in.\n";
-        menuLevel = AppLevels::EMPLOYEE_MENU;
+        if (restaurant->employeeLogin())
+            menuLevel = AppLevels::EMPLOYEE_MENU;
+        else
+            std::cout<<"[INFO]: Login has failed.\n";
     }
 
     void renderLoginPage() {
@@ -391,16 +383,11 @@ class RestaurantApp {
     void handleLogin(){
         renderLoginPage();
 
-        std::string username;
-        std::string password;
+        if (restaurant->clientLogin())
+            menuLevel = AppLevels::CLIENT_MENU;
+        else
+            std::cout<<"[INFO]: Login has failed.\n";
 
-        std::cout<<"Type username: ";
-        std::cin>>username;
-        cout<<"Type password: ";
-        std::cin>>password;
-
-        cout<<"[INFO]: User "<<username<<" successfully logged in.\n";
-        menuLevel = AppLevels::CLIENT_MENU;
     }
 
     void renderRegisterPage() {
@@ -414,29 +401,45 @@ class RestaurantApp {
     void handleRegister(){
         renderRegisterPage();
 
-        std::string email;
-        std::string name;
-        std::string surname;
-        std::string username;
-        std::string password;
-        std::string repPassword;
+        if (restaurant->clientRegister())
+            menuLevel = AppLevels::CLIENT_MENU;
+        else
+            std::cout<<"[INFO]: Register process has failed.\n";
 
-        std::cout<<"Type email: ";
-        std::cin>>email;
-        std::cout<<"Type name: ";
-        std::cin>>name;
-        std::cout<<"Type surname: ";
-        std::cin>>surname;
-        std::cout<<"Type username: ";
-        std::cin>>username;
-        cout<<"Type password: ";
-        std::cin>>password;
-        cout<<"Retype password: ";
-        std::cin>>repPassword;
+    }
 
-        cout<<username<<" registered.\n";
-        menuLevel = AppLevels::CLIENT_MENU;
+    void renderRegisterEmployeePage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|        Register Employee Page        |\n";
+        std::cout<<"|        Enter your credentials        |\n";
+        std::cout<<"|______________________________________|\n";
+    }
 
+    void handleRegisterEmployee(){
+        renderRegisterEmployeePage();
+
+        if (restaurant->employeeRegister())
+            menuLevel = AppLevels::EMPLOYEE_MENU;
+        else
+            std::cout<<"[INFO]: Register process has failed.\n";
+    }
+
+    void renderRegisterAdminPage() {
+        std::cout<<" ______________________________________ \n";
+        std::cout<<"|                                      |\n";
+        std::cout<<"|          Register Admin Page         |\n";
+        std::cout<<"|         Enter your credentials       |\n";
+        std::cout<<"|______________________________________|\n";
+    }
+
+    void handleRegisterAdmin(){
+        renderRegisterAdminPage();
+
+        if (restaurant->administratorRegister())
+            menuLevel = AppLevels::ADMIN_MENU;
+        else
+            std::cout<<"[INFO]: Register process has failed.\n";
     }
 
     void renderClientPage() {
@@ -482,6 +485,9 @@ class RestaurantApp {
     }
 
     void handleLogout() {
+        restaurant->administratorLogout();
+        restaurant->clientLogout();
+        restaurant->employeeLogout();
         menuLevel = AppLevels::HOME;
     }
 
@@ -538,11 +544,11 @@ class RestaurantApp {
 
         renderReserveHeader();
 
-        cout<<"Set reservation date [dd.mm]: ";
+        std::cout<<"Set reservation date [dd.mm]: ";
         std::cin>>reservationDate;
-        cout<<"Set reservation time [hh:mm]: ";
+        std::cout<<"Set reservation time [hh:mm]: ";
         std::cin>>reservationTime;
-        cout<<"Set number of people: ";
+        std::cout<<"Set number of people: ";
         std::cin>>numberOfPeople;
 
         renderReservationDetails(reservationDate, reservationTime, numberOfPeople);
@@ -695,7 +701,6 @@ class RestaurantApp {
         std::cout<<"[INFO]: Your order has been made. \n";
         restaurant->addOrder(order);
     }
-
 
     void handleListOrdersAction() {
 

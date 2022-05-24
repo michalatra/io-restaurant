@@ -1,6 +1,11 @@
-    std::cout<<"Number of reservations: "<<reservations->size();
-//
-// Created by kinga on 07.05.2022.
-//
-
 #include "Administrator.h"
+
+Administrator::Administrator(User *user) : user(user) {}
+
+User *Administrator::getUser() const {
+    return user;
+}
+
+void Administrator::setUser(User *user) {
+    Administrator::user = user;
+}

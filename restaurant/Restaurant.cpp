@@ -3,6 +3,10 @@
 Restaurant* Restaurant::instance = nullptr;
 
 Restaurant::Restaurant() {
+    maxUserId = 0;
+    loggedClient = nullptr;
+    loggedEmployee = nullptr;
+    loggedAdministrator = nullptr;
     address = new Address();
     employees = new std::vector<Employee*>();
     administrators = new std::vector<Administrator*>();
@@ -11,6 +15,8 @@ Restaurant::Restaurant() {
     menu = Menu::getInstance();
     orders = new std::vector<Order*>();
     tasks = new std::vector<Task*>();
+    loginHandler = LoginHandler::getInstance();
+    registerHandler = RegisterHandler::getInstance();
 }
 
 Restaurant *Restaurant::getInstance() {
@@ -109,6 +115,64 @@ void Restaurant::showInfo() {
 Address* Restaurant::getAddress() {
     return address;
 }
+
+bool Restaurant::clientRegister() {
+    loggedClient = registerHandler->registerClient(clients);
+    if (loggedClient) {
+        loggedClient->getUser()->setUserId(maxUserId++);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Restaurant::employeeRegister() {
+    loggedEmployee = registerHandler->registerEmployee(employees);
+    if (loggedEmployee) {
+        loggedEmployee->getUser()->setUserId(maxUserId++);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Restaurant::administratorRegister() {
+    loggedAdministrator = registerHandler->registerAdministrator(administrators);
+    if (loggedAdministrator) {
+        loggedAdministrator->getUser()->setUserId(maxUserId++);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void Restaurant::clientLogout() {
+    loggedClient = nullptr;
+}
+
+void Restaurant::employeeLogout() {
+    loggedEmployee = nullptr;
+}
+
+void Restaurant::administratorLogout() {
+    loggedAdministrator = nullptr;
+}
+
+bool Restaurant::clientLogin() {
+    loggedClient = loginHandler->loginClient(clients);
+    return loggedClient != nullptr;
+}
+
+bool Restaurant::employeeLogin() {
+    loggedEmployee = loginHandler->loginEmployee(employees);
+    return loggedEmployee != nullptr;
+}
+
+bool Restaurant::administratorLogin() {
+    loggedAdministrator = loginHandler->loginAdministrator(administrators);
+    return loggedAdministrator != nullptr;
+}
+
 
 
 

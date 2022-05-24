@@ -1,23 +1,23 @@
-//
-// Created by kinga on 07.05.2022.
-//
-
 #ifndef RESTAURANT_LOGINHANDLER_H
 #define RESTAURANT_LOGINHANDLER_H
-#include "iostream"
+#include <iostream>
 #include "User.h"
-using namespace std;
+#include <vector>
+#include "Client.h"
+#include "Employee.h"
+#include "Administrator.h"
 
 class LoginHandler {
-private:
-    string username;
-    string password;
-    string* getData();
-    void validateUsername();
-    void validatePassword();
+    static LoginHandler* instance;
+    std::string username;
+    std::string password;
+    void getData();
+    LoginHandler();
 public:
-    User login();
+    static LoginHandler* getInstance();
+    Client* loginClient(std::vector<Client*>* clients);
+    Employee* loginEmployee(std::vector<Employee*>* employees);
+    Administrator* loginAdministrator(std::vector<Administrator*>* administrators);
 };
-
 
 #endif //RESTAURANT_LOGINHANDLER_H

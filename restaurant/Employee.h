@@ -1,7 +1,3 @@
-//
-// Created by micha on 27.04.2022.
-//
-
 #ifndef RESTAURANT_EMPLOYEE_H
 #define RESTAURANT_EMPLOYEE_H
 
@@ -10,47 +6,52 @@
 #include "Task.h"
 #include "HolidayRequest.h"
 #include "Address.h"
+#include "User.h"
 #include <vector>
 
 class Employee {
-    Schedule schedule;
-    std::vector<Task> tasks;
+    User* user;
+    Schedule* schedule;
+    std::vector<Task*>* tasks;
     std::string position;
-    std::vector<HolidayRequest> requests;
+    std::vector<HolidayRequest*>* requests;
     std::string phoneNumber;
-    Address address;
+    Address* address;
 
 public:
-    Employee(const Schedule &schedule, const std::vector<Task> &tasks, const std::string &position,
-             const std::vector<HolidayRequest> &requests, const std::string &phoneNumber, const Address &address);
+    Employee(User *user);
 
-    const Schedule &getSchedule() const;
+    User *getUser() const;
 
-    const std::vector<Task> &getTasks() const;
+    void setUser(User *user);
+
+    Schedule* getSchedule();
+
+    std::vector<Task*>* getTasks();
 
     const std::string &getPosition() const;
 
-    const std::vector<HolidayRequest> &getRequests() const;
+    std::vector<HolidayRequest*>* getRequests();
 
     const std::string &getPhoneNumber() const;
 
-    const Address &getAddress() const;
+    Address* getAddress();
 
-    void setSchedule(const Schedule &schedule);
+    void setSchedule(Schedule* schedule);
 
     void setPosition(const std::string &position);
 
     void setPhoneNumber(const std::string &phoneNumber);
 
-    void setAddress(const Address &address);
+    void setAddress(Address* address);
 
-    void addTask(Task task);
+    void addTask(Task* task);
 
-    void removeTask(Task task);
+    void removeTask(int taskId);
 
-    void addRequest(HolidayRequest request);
+    void addRequest(HolidayRequest* request);
 
-    void removeRequest(HolidayRequest request);
+    void removeRequest(int requestId);
 };
 
 

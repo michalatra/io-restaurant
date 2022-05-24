@@ -10,10 +10,14 @@
 #include "Task.h"
 #include "LoginHandler.h"
 #include "RegisterHandler.h"
-#include "iostream"
+#include <iostream>
 #include <vector>
 
 class Restaurant {
+    int maxUserId;
+    Client* loggedClient;
+    Employee* loggedEmployee;
+    Administrator* loggedAdministrator;
     static Restaurant* instance;
     Address* address;
     std::string openHours[7];
@@ -46,9 +50,16 @@ public:
     void deleteEmlpoyee(Employee* employee);
     void deleteClient(Client* client);
     void deleteReservation(Reservation* reservation);
-    void registerUser();
-    void loginUser();
     void showInfo();
+    bool clientLogin();
+    bool employeeLogin();
+    bool administratorLogin();
+    void clientLogout();
+    void employeeLogout();
+    void administratorLogout();
+    bool clientRegister();
+    bool employeeRegister();
+    bool administratorRegister();
     Address* getAddress();
 
 };

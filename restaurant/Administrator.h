@@ -1,13 +1,17 @@
-//
-// Created by kinga on 07.05.2022.
-//
-
 #ifndef RESTAURANT_ADMINISTRATOR_H
 #define RESTAURANT_ADMINISTRATOR_H
 
+#include "User.h"
 
 class Administrator {
+    User* user;
 
+public:
+    Administrator(User *user);
+
+    User *getUser() const;
+
+    void setUser(User *user);
 };
 
 

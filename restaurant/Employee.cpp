@@ -1,20 +1,13 @@
-//
-// Created by micha on 27.04.2022.
-//
-
 #include "Employee.h"
 #include "Task.h"
 
-Employee::Employee(const Schedule &schedule, const std::vector<Task> &tasks, const std::string &position,
-                   const std::vector<HolidayRequest> &requests, const std::string &phoneNumber, const Address &address)
-        : schedule(schedule), tasks(tasks), position(position), requests(requests), phoneNumber(phoneNumber),
-          address(address) {}
 
-const Schedule &Employee::getSchedule() const {
+
+Schedule* Employee::getSchedule() {
     return schedule;
 }
 
-const std::vector<Task> &Employee::getTasks() const {
+std::vector<Task*>* Employee::getTasks() {
     return tasks;
 }
 
@@ -22,7 +15,7 @@ const std::string &Employee::getPosition() const {
     return position;
 }
 
-const std::vector<HolidayRequest> &Employee::getRequests() const {
+std::vector<HolidayRequest*>* Employee::getRequests() {
     return requests;
 }
 
@@ -30,11 +23,11 @@ const std::string &Employee::getPhoneNumber() const {
     return phoneNumber;
 }
 
-const Address &Employee::getAddress() const {
+Address* Employee::getAddress() {
     return address;
 }
 
-void Employee::setSchedule(const Schedule &schedule) {
+void Employee::setSchedule(Schedule* schedule) {
     Employee::schedule = schedule;
 }
 
@@ -46,33 +39,47 @@ void Employee::setPhoneNumber(const std::string &phoneNumber) {
     Employee::phoneNumber = phoneNumber;
 }
 
-void Employee::setAddress(const Address &address) {
+void Employee::setAddress(Address* address) {
     Employee::address = address;
 }
 
-void Employee::addTask(Task task) {
-    Employee::tasks.push_back(task);
+void Employee::addTask(Task* task) {
+    Employee::tasks->push_back(task);
 }
 
-void Employee::removeTask(Task task) {
-    for (auto t=tasks.begin(); t != tasks.end(); t++) {
-        if (t->getId() == task.getId()) {
-            tasks.erase(t);
+void Employee::removeTask(int taskId) {
+    for (auto t=tasks->begin(); t != tasks->end(); t++) {
+        if ((*t)->getId() == taskId) {
+            tasks->erase(t);
             break;
         }
     }
 }
 
-void Employee::addRequest(HolidayRequest request) {
-    Employee::requests.push_back(request);
+void Employee::addRequest(HolidayRequest* request) {
+    Employee::requests->push_back(request);
 }
 
-void Employee::removeRequest(HolidayRequest request) {
-    for (auto r=requests.begin(); r != requests.end(); r++) {
-        if (r->getRequestId() == request.getRequestId()) {
-            requests.erase(r);
+Employee::Employee(User *user) : user(user) {
+    schedule = new Schedule();
+    tasks = new std::vector<Task*>();
+    requests = new std::vector<HolidayRequest*>();
+}
+
+void Employee::removeRequest(int requestId) {
+    for (auto r=requests->begin(); r != requests->end(); r++) {
+        if ((*r)->getRequestId() == requestId) {
+            requests->erase(r);
             break;
         }
     }
+}
+
+User *Employee::getUser() const {
+    return user;
+}
+
+void Employee::setUser(User *user) {
+    Employee::user = user;
 }
 

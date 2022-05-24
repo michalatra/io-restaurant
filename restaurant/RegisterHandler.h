@@ -1,23 +1,26 @@
-//
-// Created by kinga on 07.05.2022.
-//
-
 #ifndef RESTAURANT_REGISTERHANDLER_H
 #define RESTAURANT_REGISTERHANDLER_H
 #include "iostream"
 #include "User.h"
-using namespace std;
-
+#include "Client.h"
+#include "Employee.h"
+#include "Administrator.h"
+#include "RegisterHandler.h"
+#include "LoginHandler.h"
+#include <vector>
 class RegisterHandler {
+    static RegisterHandler* instance;
     User* user;
-    string* getData();
-    void validateUsername();
-    void saveUser();
-
+    User* getData();
+    bool validateClientData(User* user, std::vector<Client*>* clients);
+    bool validateEmployeeData(User* user, std::vector<Employee*>* employees);
+    bool validateAdministratorData(User* user, std::vector<Administrator*>* administrators);
+    RegisterHandler();
 public:
-    User registerUser();
-
-
+    static RegisterHandler* getInstance();
+    Client* registerClient(std::vector<Client*>* clients);
+    Employee* registerEmployee(std::vector<Employee*>* employees);
+    Administrator* registerAdministrator(std::vector<Administrator*>* administrators);
 };
 
 
