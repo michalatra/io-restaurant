@@ -12,11 +12,11 @@ void Order::setOrderId(int orderId) {
     Order::orderId = orderId;
 }
 
-const vector<Dish> &Order::getDishList() const {
+const std::vector<Dish> &Order::getDishList() const {
     return dishList;
 }
 
-void Order::setDishList(const vector<Dish> &dishList) {
+void Order::setDishList(std::vector<Dish> &dishList) {
     Order::dishList = dishList;
 }
 
@@ -48,11 +48,11 @@ void Order::setAddress(const Address &address) {
     Order::address = address;
 }
 
-const string &Order::getPaymentType() const {
+const std::string &Order::getPaymentType() const {
     return paymentType;
 }
 
-void Order::setPaymentType(const string &paymentType) {
+void Order::setPaymentType(const std::string &paymentType) {
     Order::paymentType = paymentType;
 }
 

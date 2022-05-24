@@ -1,16 +1,12 @@
-//
-// Created by kinga on 27.04.2022.
-//
-
 #include "Ingredient.h"
 
-Ingredient::Ingredient(const string &name, int quanity, int price) : name(name), quanity(quanity), price(price) {}
+Ingredient::Ingredient(std::string name, int quanity, int price) : name(name), quanity(quanity), price(price) {}
 
-int Ingredient::getQuanity() const {
+int Ingredient::getQuanity() {
     return quanity;
 }
 
-const string &Ingredient::getName() const {
+const std::string Ingredient::getName() {
     return name;
 }
 
@@ -18,7 +14,7 @@ void Ingredient::setQuanity(int quanity) {
     Ingredient::quanity = quanity;
 }
 
-float Ingredient::getPrice() const {
+float Ingredient::getPrice() {
     return price;
 }
 
@@ -26,11 +22,11 @@ void Ingredient::setPrice(float price) {
     Ingredient::price = price;
 }
 
-void Ingredient::setName(const string &name) {
+void Ingredient::setName(std::string name) {
     Ingredient::name = name;
 }
 
-int Ingredient::getId() const {
+int Ingredient::getId() {
     return id;
 }
 

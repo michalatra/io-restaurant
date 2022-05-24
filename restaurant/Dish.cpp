@@ -4,42 +4,32 @@
 
 #include "Dish.h"
 
-Dish::Dish(int id, const string &name, const vector<Ingredient> &ingredients, int price) : id(id), name(name),
-                                                                                           ingredients(ingredients),
-                                                                                           price(price) {}
+Dish::Dish(std::string n, int p, std::vector<Ingredient*>* i) {
+    name = n;
+    price = p;
+    ingredients = i;
+}
 
-const vector<Ingredient> &Dish::getIngredients() const {
+std::vector<Ingredient*>* Dish::getIngredients() {
     return ingredients;
 }
 
-void Dish::setIngredients(const vector<Ingredient> &ingredients) {
-    Dish::ingredients = ingredients;
-}
-
-float Dish::getPrice() const {
+float Dish::getPrice() {
     return price;
 }
 
 void Dish::setPrice(float price) {
-    Dish::price = price;
+    price = price;
 }
 
-const string &Dish::getName() const {
-    return name;
+void Dish::addIngredient(Ingredient* ingredient){
+    Dish::ingredients->push_back(ingredient);
 }
 
-void Dish::addIngredient(Ingredient ingredient){
-    Dish::ingredients.push_back(ingredient);
-}
-
-int Dish::getId() const {
-    return id;
-}
-
-void Dish::removeIngredient(Ingredient ingredient) {
-    for (auto i=ingredients.begin(); i != ingredients.end(); i++) {
-        if (i->getId() == ingredient.getId()) {
-            ingredients.erase(i);
+void Dish::removeIngredient(Ingredient* ingredient) {
+    for (auto i = ingredients->begin(); i != ingredients->end(); i++) {
+        if ((*i)->getId() == ingredient->getId()) {
+            ingredients->erase(i);
             break;
         }
     }
@@ -49,8 +39,16 @@ void Dish::setId(int id) {
     Dish::id = id;
 }
 
-void Dish::setName(const string &name) {
+int Dish::getId() {
+    return id;
+}
+
+void Dish::setName(std::string name) {
     Dish::name = name;
+}
+
+std::string Dish::getName() {
+    return name;
 }
 
 

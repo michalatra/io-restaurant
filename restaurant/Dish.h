@@ -1,43 +1,35 @@
-//
-// Created by kinga on 27.04.2022.
-//
-
 #ifndef RESTAURANT_DISH_H
 #define RESTAURANT_DISH_H
 #include <iostream>
 #include "Ingredient.h"
 #include <vector>
-using namespace std;
+
 class Dish {
+    int id;
+    std::string name;
+    std::vector<Ingredient*>* ingredients;
+    float price;
+
 public:
+    Dish(std::string n, int p, std::vector<Ingredient*>* i);
 
-    Dish(int id, const string &name, const vector<Ingredient> &ingredients, int price);
+    std::vector<Ingredient*>* getIngredients();
 
-    const vector<Ingredient> &getIngredients() const;
-
-    void setIngredients(const vector<Ingredient> &ingredients);
-
-    float getPrice() const;
+    float getPrice();
 
     void setPrice(float price);
 
-    const string &getName() const;
+    void addIngredient(Ingredient* ingredient);
 
-    void addIngredient(Ingredient ingredient);
-
-    void removeIngredient(Ingredient ingredient);
+    void removeIngredient(Ingredient* ingredient);
 
     void setId(int id);
 
-    void setName(const string &name);
+    int getId();
 
-    int getId() const;
+    void setName(std::string name);
 
-private:
-    int id;
-    string name;
-    vector<Ingredient> ingredients;
-    float price;
+    std::string getName();
 };
 
 

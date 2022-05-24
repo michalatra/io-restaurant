@@ -1,33 +1,29 @@
-//
-// Created by kinga on 27.04.2022.
-//
-
 #ifndef RESTAURANT_INGREDIENT_H
 #define RESTAURANT_INGREDIENT_H
 
 #include <iostream>
-using namespace std;
+
 class Ingredient {
-    string name;
+    int id;
     int quanity;
     float price;
-    int id;
+    std::string name;
 public:
-    Ingredient(const string &name, int quanity, int price);
+    Ingredient(std::string name, int quanity, int price);
 
-    int getQuanity() const;
+    int getQuanity();
 
     void setQuanity(int quanity);
 
-    float getPrice() const;
+    float getPrice();
 
     void setPrice(float price);
 
-    const string &getName() const;
+    const std::string getName();
 
-    void setName(const string &name);
+    void setName(std::string name);
 
-    int getId() const;
+    int getId();
 
     void setId(int id);
 

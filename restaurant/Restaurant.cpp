@@ -8,7 +8,7 @@ Restaurant::Restaurant() {
     administrators = new std::vector<Administrator*>();
     clients = new std::vector<Client*>();
     reservations = new std::vector<Reservation*>();
-    menu = new Menu();
+    menu = Menu::getInstance();
     orders = new std::vector<Order*>();
     tasks = new std::vector<Task*>();
 }

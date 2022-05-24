@@ -34,9 +34,9 @@ public:
 
     void setClientId(int clientId);
 
-    const vector<Dish> &getDishList() const;
+    const std::vector<Dish> &getDishList() const;
 
-    void setDishList(const vector<Dish> &dishList);
+    void setDishList(std::vector<Dish> &dishList);
 
     float getSummedPrice() const;
 
@@ -54,9 +54,9 @@ public:
 
     void setAddress(const Address &address);
 
-    const string &getPaymentType() const;
+    const std::string &getPaymentType() const;
 
-    void setPaymentType(const string &paymentType);
+    void setPaymentType(const std::string &paymentType);
 };
 
 
